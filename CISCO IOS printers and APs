@@ -1,0 +1,41 @@
+#Below is an example configuration for setting up VLANs on Cisco Catalyst 9300 
+#switches for printers and access points. This assumes you're using the Cisco IOS 
+#command-line interface (CLI).
+
+
+
+# Accessing the switch CLI
+ssh admin@switch_ip_address
+# Enter your password when prompted
+
+# Enable privileged EXEC mode
+enable
+# Enter your password when prompted
+
+# Configure VLANs for printers and access points
+config terminal
+
+# VLAN for Printers
+vlan 100
+name Printers
+exit
+
+# VLAN for Access Points
+vlan 200
+name Access_Points
+exit
+
+# Assign ports to VLANs
+interface range GigabitEthernet1/0/1-24
+switchport mode access
+switchport access vlan 100
+exit
+
+interface range GigabitEthernet1/0/25-28
+switchport mode access
+switchport access vlan 200
+exit
+
+# Save your configuration
+end
+write memory
